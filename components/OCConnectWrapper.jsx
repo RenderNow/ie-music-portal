@@ -4,7 +4,8 @@ import { OCConnect } from '@opencampus/ocid-connect-js';
 
 export default function OCConnectWrapper({ children }) {
   const opts = {
-    redirectUri: 'http://localhost:3000/redirect', // Redirect after login
+    // Use the environment variable, and provide a fallback for local development
+    redirectUri: process.env.NEXT_PUBLIC_REDIRECT_URI,
     referralCode: 'PARTNER6', // Change this if needed
   };
 

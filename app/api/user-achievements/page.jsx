@@ -47,5 +47,7 @@ app.post("/api/user-achievements", async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+const port = process.env.PORT || 3000; // Fallback to 3000 for local development
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
