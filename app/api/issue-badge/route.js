@@ -42,7 +42,7 @@ export async function POST(req) {
     };
 
     let response, data;
-    const maxRetries = 3;
+    const maxRetries = 5;
     let attempt = 0;
 
     while (attempt < maxRetries) {
