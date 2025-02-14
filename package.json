@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "@next/font": "^14.2.15",
+    "@opencampus/ocid-connect-js": "^1.2.6",
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jwt-decode": "^4.0.0",
+    "mongodb": "^6.13.0",
+    "next": "^15.1.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^4.0.4"
+  }
+}

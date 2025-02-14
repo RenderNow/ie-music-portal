@@ -1,0 +1,254 @@
+/* Reset margins, padding, and enforce full width */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.layout {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.main {
+  background: #333;
+}
+.main-container {
+  padding: 20px 20px;
+  height: 100vh;
+  background: #333;
+  color: #000000;
+}
+.main-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+}
+/* Ensure html and body take up full width and height */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}     
+
+/* Container fix */
+#__next {
+  width: 100%;
+  height: 100%;
+}
+
+/* Layout container (if applicable) */
+.container {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #333;
+    color: #000000;
+  }
+  
+  .login-card {
+    background: #f4f6fc;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .logo {
+    max-width: 150px;
+    margin-bottom: 1rem;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .redirecting {
+    font-size: 1.2rem;
+    color: #00008b;
+  }
+  
+  .loading,
+  .error {
+    color: #ff5757;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  
+  .login-button {
+    padding: 10px 10px;
+    background-color: #191b1d;
+    color: rgb(255, 255, 255);
+    border: 1.5px solid #141beb;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .login-button:hover {
+    box-shadow: 0 0 5px #141beb;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+  }
+  .col-container {
+    display: flex;
+    padding-top: 10px;
+    gap: 20px; /* Adds spacing between columns */
+  }
+  .column {
+      flex: 1; /* Each column takes equal space */
+      padding: 20px;
+      border: 1px solid #000;
+      background-color: #333;
+      color: #ffffff;
+      border-radius: 10px;
+  }
+  .claim-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffffad;
+    padding: 10px;
+    border-radius: 15px;
+    border: 5px solid #ffffff;
+    color: rgb(0, 0, 0);
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .claim-left {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .claim-middle {
+    flex: 2;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 0 20px;
+  }
+  
+  .claim-right {
+    flex: 1;
+    text-align: right;
+  }
+  
+  .claim-button {
+    padding: 15px 15px;
+    background-color: #333;
+    color: white;
+    border: 1.5px solid #616cff;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  .claim-button:hover {
+    background: #616cff;
+    box-shadow: 0 0 5px #616cff;
+  }
+  
+  .claim-image {
+    max-width: 100px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid white;
+    background-color: #ffffff;
+  }
+
+  .achievements-container {
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 10px;
+  }
+  
+  .badge-card {
+    display: flex;
+    justify-content: space-between;
+    background-color: #222;
+    padding: 15px;
+    border-radius: 12px;
+    border: 2px solid #444;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    max-width: 900px;
+  }
+  
+  .badge-left {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .badge-middle {
+    flex: 2;
+    text-align: left;
+    font-size: 1rem;
+    padding: 0 20px;
+    color: rgb(181, 181, 181);
+  }
+  
+  .badge-image {
+    max-width: 80px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid white;
+    background-color: #ffffff;
+  }
+  
+  .badge-date {
+    font-size: 0.9rem;
+    color: #616cff;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #616cff; /* Adjust color */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .profile-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .profile-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .profile-button:hover {
+    background-color: #0056b3;
+  }
