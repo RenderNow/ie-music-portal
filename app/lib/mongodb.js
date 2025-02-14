@@ -1,7 +1,12 @@
 import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
-const options = {};
+
+// Optionally include TLS options if needed by your MongoDB instance
+const options = {
+  tls: true,
+  // tlsAllowInvalidCertificates: true, // Uncomment only for testing/self-signed certs
+};
 
 let client;
 let clientPromise;
@@ -16,3 +21,4 @@ export async function connectToDatabase() {
   const client = await clientPromise;
   return { db: client.db("opencampus") }; // Ensure "opencampus" is the correct database name
 }
+
