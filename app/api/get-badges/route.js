@@ -1,22 +1,34 @@
-//import fetch from 'node-fetch';
 import cheerio from 'cheerio';
+// If using Node.js 18+, you can remove node-fetch since global fetch is available.
+// Otherwise, uncomment the following line:
+// import fetch from 'node-fetch';
 
-export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const { OCId } = req.query; // Assuming OCId is passed as a query parameter
+export async function GET(request) {
+  // Extract the OCId from query parameters
+  const { searchParams } = new URL(request.url);
+  const OCId = searchParams.get('OCId');
 
   if (!OCId) {
-    return res.status(400).json({ error: 'OCId is required' });
+    return new Response(
+      JSON.stringify({ error: 'OCId is required' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
   }
 
   try {
     const response = await fetch(`https://id.sandbox.opencampus.xyz/public/credentials?username=${OCId}`);
-    
+
     if (!response.ok) {
-      throw new Error(`API Error: ${response.status} - ${response.statusText}`);
+      return new Response(
+        JSON.stringify({ error: `API Error: ${response.status} - ${response.statusText}` }),
+        {
+          status: response.status,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
     }
 
     const html = await response.text();
@@ -28,14 +40,20 @@ export default async function handler(req, res) {
       const name = $(element).find('.credential-name').text().trim();
       const description = $(element).find('.credential-description').text().trim();
       const image = $(element).find('.credential-image').attr('src');
-
       achievements.push({ name, description, image });
     });
 
-    res.status(200).json(achievements);
+    return new Response(JSON.stringify(achievements), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
   } catch (error) {
     console.error('Error fetching badges:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }
+
   
