@@ -24,7 +24,7 @@ export default function LoginPage() {
       <div className="login-container">
         <div className="login-card">
           <img src="https://ie-music.co.uk/wp-content/uploads/2022/02/1.png" alt="Logo" className="logo" />
-          <h1>Achievements</h1>
+          <h1>ie.Badges</h1>
           {authState.isAuthenticated ? (
             <LoginButton className="login-button" />
           ) : (

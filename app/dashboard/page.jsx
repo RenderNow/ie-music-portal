@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useOCAuth } from "@opencampus/ocid-connect-js";
 import Layout from "../../components/Layout";
+import confetti from "canvas-confetti";
 
 export default function Dashboard() {
   const { authState, ocAuth } = useOCAuth();
@@ -59,41 +60,45 @@ export default function Dashboard() {
 
   const fetchUserAchievements = async (ocId) => {
     try {
-      console.log("🔍 Fetching Achievements for OCID:", ocId); // Debugging log
-  
+      console.log("🔍 Fetching Achievements for OCID:", ocId);
+
       const res = await fetch("/api/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ocId }),
       });
-  
+
       if (!res.ok) {
-        const errorData = await res.json(); // Try to read the error response
-        throw new Error(`HTTP error! Status: ${res.status}, Message: ${errorData.error || "Unknown error"}`);
+        const errorData = await res.json();
+        throw new Error(
+          `HTTP error! Status: ${res.status}, Message: ${errorData.error || "Unknown error"}`
+        );
       }
-  
+
       const data = await res.json();
-      console.log("✅ Achievements fetched:", data); // Debugging log
-  
+      console.log("✅ Achievements fetched:", data);
+
       setAchievements(data.achievements || []);
       setHasClaimed(
         data.achievements?.some((achievement) => achievement.name === "IEMusic Workshop") &&
-        data.achievements?.some((achievement) => achievement.name === "Live Zoom Call with Star Musician")
+          data.achievements?.some(
+            (achievement) => achievement.name === "Live Zoom Call with Star Musician"
+          )
       );
     } catch (error) {
       console.error("❌ Error fetching achievements:", error.message);
     }
   };
-  
-  
+
   const handleClaimBadge = async (badgeName) => {
     if (!authState?.OCId) {
       setMessage("❌ Error: No OCID found for user.");
+      setTimeout(() => setMessage(""), 3000);
       return;
     }
-  
+
     setClaiming(true);
-  
+
     const badgeData = {
       holderOcId: authState.OCId,
       name: badgeName,
@@ -106,34 +111,43 @@ export default function Dashboard() {
           ? "https://ie-music.co.uk/wp-content/uploads/2022/02/1.png"
           : "https://ie-music.co.uk/wp-content/uploads/2022/02/1.png",
     };
-  
+
     try {
       const response = await fetch("/api/issue-badge", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(badgeData),
       });
-  
+
       const data = await response.json();
       if (response.ok) {
-        setMessage(`🎉 ${badgeName} Badge Issued Successfully!`);
-  
-        // ✅ Fetch updated achievements immediately after claiming
+        setMessage(`🎉 Well done! You have won an award: ${badgeName}!`);
+        // Fire confetti explosion effect
+        confetti({
+          particleCount: 500,
+          spread: 300,
+          origin: { y: 0.8 },
+        });
+        // Clear message after 3 seconds
+        setTimeout(() => setMessage(""), 4000);
+
+        // Fetch updated achievements after a short delay
         setTimeout(async () => {
           await fetchUserAchievements(authState.OCId);
           setClaiming(false);
-        }, 2000); // ✅ Add a slight delay for database sync if needed
+        }, 2000);
       } else {
         setMessage("❌ Error Issuing Badge: " + data.message);
+        setTimeout(() => setMessage(""), 3000);
         setClaiming(false);
       }
     } catch (error) {
       console.error("❌ Error claiming badge:", error.message);
       setMessage("❌ Failed to claim badge. Try again later.");
+      setTimeout(() => setMessage(""), 3000);
       setClaiming(false);
     }
   };
-  
 
   const handleLogout = async () => {
     try {
@@ -154,34 +168,37 @@ export default function Dashboard() {
     <Layout>
       <div>
         <h1>Welcome to the Dashboard</h1>
-        {authState ? (
-          <>
-            <p>You are logged in as: <strong>{authState.OCId || "No ID available"}</strong></p>
-            <p>Wallet Address: <strong>{authState.ethAddress || "No wallet address available"}</strong></p>
-          </>
-        ) : (
-          <p>Loading authentication...</p>
-        )}
+        <h3>"Claim and earn your badges right from your dashboard!"</h3>
+        {message && <div className="message-box">{message}</div>}
       </div>
       <div className="col-container">
-        <div className="column">
-        <h2>Claim Your Badges</h2>
+        <div className="column1">
+          <h2>Claim Your Badges</h2>
           {!loading && !claiming && (
             <>
               {/* IEMusic Workshop Badge */}
-              {!achievements.some((ach) => ach.name === "IEMusic Workshop") && (
-                <div className="claim-card">
-                  <div className="claim-left">
-                    <button onClick={() => handleClaimBadge("IEMusic Workshop")} className="claim-button">
-                      Claim Badge
-                    </button>
-                  </div>
-
+              {!achievements.some(
+                (ach) => ach.name === "IEMusic Workshop"
+              ) && (
+                <div
+                  className="claim-card"
+                  onClick={() =>
+                    handleClaimBadge("IEMusic Workshop")
+                  }
+                  role="button"
+                  tabIndex={0}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      handleClaimBadge("IEMusic Workshop");
+                    }
+                  }}
+                >
                   <div className="claim-middle">
-                    <h3>IEMusic Workshop Achievement</h3>
-                    <p>Earn this exclusive award for completing the IEMusic Workshop!</p>
+                    <h4>IEMusic Workshop Achievement</h4>
+                    <p>
+                    Earn this exclusive award for completing the IEMusic Workshop!
+                    </p>
                   </div>
-
                   <div className="claim-right">
                     <img
                       src="https://ie-music.co.uk/wp-content/uploads/2022/02/1.png"
@@ -191,21 +208,29 @@ export default function Dashboard() {
                   </div>
                 </div>
               )}
-
               {/* Live Zoom Call Badge */}
-              {!achievements.some((ach) => ach.name === "Live Zoom Call with Star Musician") && (
-                <div className="claim-card">
-                  <div className="claim-left">
-                    <button onClick={() => handleClaimBadge("Live Zoom Call with Star Musician")} className="claim-button">
-                      Claim Badge
-                    </button>
-                  </div>
-
+              {!achievements.some(
+                (ach) => ach.name === "Live Zoom Call with Star Musician"
+              ) && (
+                <div
+                  className="claim-card"
+                  onClick={() =>
+                    handleClaimBadge("Live Zoom Call with Star Musician")
+                  }
+                  role="button"
+                  tabIndex={0}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      handleClaimBadge("Live Zoom Call with Star Musician");
+                    }
+                  }}
+                >
                   <div className="claim-middle">
-                    <h3>Live Zoom Call with Star Musician</h3>
-                    <p>Exclusive access to a live session with a star musician!</p>
+                    <h4>Live Zoom Call with Star Musician</h4>
+                    <p>
+                      Exclusive access to a live session with a star musician!
+                    </p>
                   </div>
-
                   <div className="claim-right">
                     <img
                       src="https://ie-music.co.uk/wp-content/uploads/2022/02/1.png"
@@ -221,40 +246,40 @@ export default function Dashboard() {
           {claiming && (
             <div className="loading-container">
               <div className="loading-spinner"></div>
-              <p>Claiming your achievement... Please wait.</p>
+              <p>Claiming your badge... Please wait.</p>
             </div>
           )}
 
-          {/* ✅ Show message only when ALL badges have been claimed */}
           {!loading &&
             achievements.some((ach) => ach.name === "IEMusic Workshop") &&
-            achievements.some((ach) => ach.name === "Live Zoom Call with Star Musician") && (
-              <p className="no-badges-message">🎉 No more badges to claim right now!</p>
+            achievements.some(
+              (ach) => ach.name === "Live Zoom Call with Star Musician"
+            ) && (
+              <p className="no-badges-message">
+                🎉 No more badges to claim right now!
+              </p>
             )}
         </div>
 
-
-
-        
-        <div className="column">            
-        <h2>Your Achievements</h2>
+        <div className="column2">
+          <h2>Your Badges</h2>
           <div className="achievements-container">
             {achievements.length > 0 ? (
               achievements.map((achievement, index) => (
                 <div key={index} className="badge-card">
                   <div className="badge-left">
-                    <img 
-                      src={achievement.image || "https://via.placeholder.com/100"} 
-                      alt={achievement.name} 
+                    <img
+                      src={achievement.image || "https://via.placeholder.com/100"}
+                      alt={achievement.name}
                       className="badge-image"
                     />
                   </div>
-                  
                   <div className="badge-middle">
-                    <h3>{achievement.name}</h3>
-                    <p>{achievement.description}</p>
+                    <h5>{achievement.name}</h5>
+                    <h6>{achievement.description}</h6>
                     <p className="badge-date">
-                      🎉 Issued: {new Date(achievement.issuedAt).toLocaleDateString()}
+                      🎉 Issued:{" "}
+                      {new Date(achievement.issuedAt).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
@@ -280,4 +305,3 @@ export default function Dashboard() {
     </Layout>
   );
 }
-

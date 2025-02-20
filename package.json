@@ -3,6 +3,7 @@
     "@next/font": "^14.2.15",
     "@opencampus/ocid-connect-js": "^1.2.6",
     "axios": "^1.7.9",
+    "canvas-confetti": "^1.9.3",
     "cheerio": "^1.0.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",

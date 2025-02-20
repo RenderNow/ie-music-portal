@@ -37,15 +37,28 @@ const Header = () => {
 
     return (
         <header className={styles.header}>
-            <div className={styles.logo}>
-                <Link href="/dashboard">
-                    <img
-                        src="/iemusic_logo.png"
-                        alt="Logo"
-                    />
-                </Link>
+            {/* Left side: Logo and user info */}
+            <div className={styles.leftContainer}>
+                <div className={styles.logo}>
+                    <Link href="/dashboard">
+                        <img src="/iemusic_logo_light.png" alt="Logo" />
+                    </Link>
+                </div>
+                {isClient && authState && (
+                    <div className={styles.userInfo}>
+                        <div className="p2">
+                            <strong>Logged in as:</strong>{" "}
+                            <span className={styles.ocid}>{user.ocId}</span>
+                        </div>
+                        {/* Dropdown that appears on hover */}
+                        <div className={styles.dropdown}>
+                            <div className="p2"><strong>ETH Address:</strong> {user.ethAddress}</div>
+                        </div>
+                    </div>
+                )}
             </div>
 
+            {/* Center: Navigation */}
             <nav className={styles.nav}>
                 <ul>
                     <li className={pathname === "/dashboard" ? styles.active : ""}>
@@ -57,13 +70,7 @@ const Header = () => {
                 </ul>
             </nav>
 
-            {/* User Info Display */}
-            {isClient && authState && (
-                <div className={styles.userInfo}>
-                    <p><strong>Logged in as:</strong> {user.ocId}</p>
-                </div>
-            )}
-
+            {/* Right: Logout button */}
             <button className={styles.logout} onClick={handleLogout}>
                 Logout
             </button>

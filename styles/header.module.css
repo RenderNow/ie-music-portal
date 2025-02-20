@@ -1,25 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Quattrocento+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
 .header {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
-    background: #ffffff;
-    color: rgb(0, 0, 0);
+    background: #333;
+    color: #fff;
     padding: 15px 30px;
-    font-family: "Quattrocento Sans", sans-serif;
+    font-family: "Playfair Display", serif;
     font-weight: bold;
-    border-bottom: 2px solid #ddd; /* Adds a subtle separator */
+    border-bottom: 2px solid #3e4560;
 }
 
-/* Logo Styling */
+/* Left container to hold the logo and user info */
+.leftContainer {
+    display: flex;
+    align-items: center;
+}
+
+/* Logo styling */
 .logo img {
     height: 40px;
-    width: auto; /* Ensures aspect ratio is maintained */
+    width: auto;
     cursor: pointer;
 }
 
-/* Centering the navigation */
+/* User Info styling (moved next to the logo) */
+.userInfo {
+    margin-left: 15px; /* Space between logo and text */
+    font-size: 14px;
+    text-align: left;
+}
+
+.userInfo p {
+    margin: 0;
+    line-height: 1.4;
+    font-weight: normal;
+}
+
+/* Navigation container */
 .nav {
     flex-grow: 1;
     display: flex;
@@ -38,49 +57,56 @@
 }
 
 .nav a {
+    position: relative; /* For the hover underline effect */
     text-decoration: none;
-    color: rgb(0, 0, 0);
+    color: #fff;
     font-size: 18px;
-    transition: color 0.3s ease, font-weight 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/* Highlight active page */
+/* Underline effect for nav links */
+.nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -3px;
+    left: 0;
+    background-color: #838daf;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Scale and color change on hover */
+.nav a:hover {
+    color: #838daf;
+    transform: scale(1.05);
+}
+
+/* Active link styling */
 .nav .active a {
-    color: #616cff; /* Blue for active link */
-    font-weight: 700; /* Bolder font for selected page */
+    color: #838daf;
+    font-weight: 700;
 }
 
-/* User Info Section */
-.userInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    font-size: 14px;
-    text-align: right;
-    margin-right: 20px;
-}
-
-.userInfo p {
-    margin: 0;
-    line-height: 1.4;
-    font-weight: normal;
-}
-
-/* Logout Button Styling */
+/* Logout button styling */
 .logout {
     background: #333;
-    color: white;
+    color: #fff;
     border: none;
     padding: 10px 15px;
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
     transition: background 0.3s ease, box-shadow 0.3s ease;
-    margin-left: 10px;
+    margin-left: 70%;
 }
 
 .logout:hover {
-    background: #616cff;
+    background: #838daf;
     box-shadow: 0px 0px 8px rgba(43, 0, 255, 0.3);
 }
 
@@ -91,6 +117,11 @@
         align-items: center;
         text-align: center;
         padding: 10px;
+    }
+
+    .leftContainer {
+        flex-direction: column;
+        align-items: center;
     }
 
     .nav {
@@ -106,12 +137,51 @@
     }
 
     .userInfo {
-        margin: 10px 0;
+        margin: 10px 0 0 0;
         text-align: center;
     }
 
     .logout {
         margin-top: 10px;
     }
+}
+
+/* User Info Styling (next to the logo) */
+.userInfo {
+    margin-left: 15px;
+    font-size: 14px;
+    text-align: left;
+    position: relative; /* Allows the dropdown to position absolutely */
+}
+
+.userInfo p {
+    margin: 0;
+    line-height: 1.4;
+    font-weight: normal;
+}
+
+/* The dropdown box that shows the ETH address */
+.dropdown {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    position: absolute;
+    top: 100%; /* Position right below the parent element */
+    left: 0;
+    background: #333;
+    color: #ffffff;
+    padding: 8px 12px;
+    border: 1px solid #838daf;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Show the dropdown on hover with fade in/out */
+.userInfo:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
 }
 

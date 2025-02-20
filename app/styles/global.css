@@ -1,8 +1,11 @@
-/* Reset margins, padding, and enforce full width */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+/* Reset margins, padding, enforce full width, and apply global font */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Playfair Display", serif;
 }
 
 .layout {
@@ -10,21 +13,26 @@
   margin: 0;
   padding: 0;
 }
+
 .main {
   background: #333;
 }
+
 .main-container {
-  padding: 20px 20px;
+  padding: 20px;
   height: 100vh;
-  background: #333;
+  background: #f4f6fc url('/LargeLogo_.png') no-repeat right center;
+  background-position: right -400px top -200px;
+  background-size: auto 120%;
   color: #000000;
 }
+
 .main-card {
-  background: #ffffff;
   padding: 2rem;
   border-radius: 10px;
   text-align: center;
 }
+
 /* Ensure html and body take up full width and height */
 html, body {
   width: 100%;
@@ -44,6 +52,7 @@ html, body {
   max-width: 100vw;
   overflow-x: hidden;
 }
+
 .login-container {
     display: flex;
     justify-content: center;
@@ -51,38 +60,74 @@ html, body {
     height: 100vh;
     background: #333;
     color: #000000;
-  }
+}
   
-  .login-card {
+.login-card {
     background: #f4f6fc;
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
-  }
+}
   
-  .logo {
+.logo {
     max-width: 150px;
     margin-bottom: 1rem;
-  }
+}
   
-  h1 {
-    font-size: 1.8rem;
+h1 {
+    font-size: 3rem;
     margin-bottom: 1rem;
-  }
-  
-  .redirecting {
+}
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #000000;
+}
+h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #989898;
+}
+h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #000000;
+}
+
+h5 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+h6 {
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  color: #a8a8a8;
+}
+
+p {
+  font-size: 1.0rem;
+  margin-bottom: 1rem;
+  color: #4e4e4e;
+}
+p2 {
+  color: #ffffff;
+}
+
+.redirecting {
     font-size: 1.2rem;
     color: #00008b;
-  }
+}
   
-  .loading,
-  .error {
+.loading,
+.error {
     color: #ff5757;
     text-align: center;
     font-size: 1.2rem;
-  }
+}
   
-  .login-button {
+.login-button {
     padding: 10px 10px;
     background-color: #191b1d;
     color: rgb(255, 255, 255);
@@ -91,57 +136,66 @@ html, body {
     font-size: 1rem;
     cursor: pointer;
     transition: box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-  }
+}
   
-  .login-button:hover {
+.login-button:hover {
     box-shadow: 0 0 5px #141beb;
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-  }
-  .col-container {
+}
+  
+.col-container {
     display: flex;
-    padding-top: 10px;
+    padding-top: 50px;
     gap: 20px; /* Adds spacing between columns */
-  }
-  .column {
-      flex: 1; /* Each column takes equal space */
-      padding: 20px;
-      border: 1px solid #000;
-      background-color: #333;
-      color: #ffffff;
-      border-radius: 10px;
-  }
-  .claim-card {
+}
+  
+.column1 {
+    flex: 1; /* Each column takes equal space */
+    padding: 20px;
+    color: #000000;
+    border-radius: 10px;
+}
+.column2 {
+  flex: 1; /* Each column takes equal space */
+  padding: 20px;
+  color: #000000;
+  border-radius: 10px;
+}
+  
+.claim-card {
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #ffffffad;
+    background-color: #ffffff;
     padding: 10px;
     border-radius: 15px;
-    border: 5px solid #ffffff;
+    border: 5px solid #3e4560;
     color: rgb(0, 0, 0);
     margin-top: 20px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-  }
+}
+.claim-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly change background for effect */
+
+}
   
-  .claim-left {
-    flex: 1;
-    text-align: center;
-  }
-  
-  .claim-middle {
+.claim-middle {
     flex: 2;
     text-align: center;
     font-size: 1.2rem;
     padding: 0 20px;
-  }
+}
   
-  .claim-right {
+.claim-right {
     flex: 1;
     text-align: right;
-  }
+}
   
-  .claim-button {
+.claim-button {
     padding: 15px 15px;
     background-color: #333;
     color: white;
@@ -150,75 +204,74 @@ html, body {
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.3s ease, color 0.3s ease;
-  }
+}
   
-  .claim-button:hover {
+.claim-button:hover {
     background: #616cff;
     box-shadow: 0 0 5px #616cff;
-  }
+}
   
-  .claim-image {
+.claim-image {
     max-width: 100px;
     height: auto;
     border-radius: 10px;
     border: 2px solid white;
     background-color: #ffffff;
-  }
+}
 
-  .achievements-container {
+.achievements-container {
     flex-direction: column;
     gap: 20px;
-    padding-top: 10px;
-  }
+}
   
-  .badge-card {
+.badge-card {
     display: flex;
     justify-content: space-between;
     background-color: #222;
-    padding: 15px;
+    padding: 10px;
     border-radius: 12px;
-    border: 2px solid #444;
     color: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     margin-top: 20px;
     max-width: 900px;
-  }
+}
   
-  .badge-left {
+.badge-left {
+    padding: 10px;
     flex: 1;
     text-align: center;
-  }
+}
   
-  .badge-middle {
+.badge-middle {
     flex: 2;
     text-align: left;
     font-size: 1rem;
     padding: 0 20px;
-    color: rgb(181, 181, 181);
-  }
+    color: rgb(255, 255, 255);
+}
   
-  .badge-image {
-    max-width: 80px;
+.badge-image {
+    max-width: 90px;
     height: auto;
     border-radius: 10px;
     border: 2px solid white;
     background-color: #ffffff;
-  }
+}
   
-  .badge-date {
+.badge-date {
     font-size: 0.9rem;
     color: #616cff;
-  }
+}
   
-  .loading-container {
+.loading-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 10px;
-  }
+}
   
-  .loading-spinner {
+.loading-spinner {
     width: 40px;
     height: 40px;
     border: 4px solid rgba(255, 255, 255, 0.3);
@@ -226,19 +279,20 @@ html, body {
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-bottom: 10px;
-  }
+}
   
-  @keyframes spin {
+@keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
-  .profile-button-container {
+}
+
+.profile-button-container {
     display: flex;
     justify-content: center;
     margin-top: 15px;
-  }
+}
   
-  .profile-button {
+.profile-button {
     padding: 10px 15px;
     background-color: #007bff;
     color: white;
@@ -247,8 +301,24 @@ html, body {
     border-radius: 5px;
     font-weight: bold;
     transition: background 0.3s ease, transform 0.2s ease;
-  }
+}
   
-  .profile-button:hover {
+.profile-button:hover {
     background-color: #0056b3;
-  }
+}
+
+.message-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3e4560;
+  color: #ffffff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  font-size: 1rem;
+  opacity: 0.95;
+  transition: opacity 0.5s ease;
+}
