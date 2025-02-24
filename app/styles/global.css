@@ -322,3 +322,71 @@ p2 {
   opacity: 0.95;
   transition: opacity 0.5s ease;
 }
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  /* Reduce padding for smaller screens */
+  .main-container {
+    padding: 10px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Stack columns vertically instead of side by side */
+  .col-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .column1,
+  .column2 {
+    padding: 10px;
+    width: 100%;
+  }
+  
+  /* Adjust headings for readability on mobile */
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+  }
+  
+  /* Make claim and badge cards more mobile friendly */
+  .claim-card,
+  .badge-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+  
+  .claim-right,
+  .badge-left {
+    margin-bottom: 10px;
+  }
+  
+  /* Adjust button sizes */
+  .claim-button,
+  .login-button,
+  .profile-button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+  
+  /* Reduce font sizes for paragraphs */
+  p {
+    font-size: 0.9rem;
+  }
+  
+  /* Ensure images do not overflow */
+  .claim-image,
+  .badge-image {
+    max-width: 80px;
+    height: auto;
+  }
+}

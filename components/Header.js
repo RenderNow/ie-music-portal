@@ -4,12 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useOCAuth } from "@opencampus/ocid-connect-js"; // Import authentication
 import styles from "../styles/header.module.css";
+import { FiMenu, FiX } from "react-icons/fi"; // Import icons for mobile menu
 
 const Header = () => {
     const pathname = usePathname();
     const { authState, ocAuth } = useOCAuth(); // Get authentication state
     const [user, setUser] = useState({ ocId: "", ethAddress: "" });
     const [isClient, setIsClient] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false); // State for mobile menu
 
     useEffect(() => {
         setIsClient(true);
@@ -50,7 +52,6 @@ const Header = () => {
                             <strong>Logged in as:</strong>{" "}
                             <span className={styles.ocid}>{user.ocId}</span>
                         </div>
-                        {/* Dropdown that appears on hover */}
                         <div className={styles.dropdown}>
                             <div className="p2"><strong>ETH Address:</strong> {user.ethAddress}</div>
                         </div>
@@ -58,8 +59,13 @@ const Header = () => {
                 )}
             </div>
 
+            {/* Mobile Menu Icon */}
+            <div className={styles.mobileMenuIcon} onClick={() => setMenuOpen(!menuOpen)}>
+                {menuOpen ? <FiX size={30} /> : <FiMenu size={30} />}
+            </div>
+
             {/* Center: Navigation */}
-            <nav className={styles.nav}>
+            <nav className={`${styles.nav} ${menuOpen ? styles.mobileNavOpen : ""}`}>
                 <ul>
                     <li className={pathname === "/dashboard" ? styles.active : ""}>
                         <Link href="/dashboard">Dashboard</Link>
@@ -79,3 +85,4 @@ const Header = () => {
 };
 
 export default Header;
+

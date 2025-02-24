@@ -91,6 +91,8 @@ export default function Dashboard() {
   };
 
   const handleClaimBadge = async (badgeName) => {
+    // ✅ Debugging OCID before calling API
+    console.log("📌 OCID before claiming badge:", authState.OCId);
     if (!authState?.OCId) {
       setMessage("❌ Error: No OCID found for user.");
       setTimeout(() => setMessage(""), 3000);
@@ -155,7 +157,8 @@ export default function Dashboard() {
       document.cookie = "ocid_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       localStorage.clear();
       sessionStorage.clear();
-      window.open("https://auth.staging.opencampus.xyz/login?new_session=true", "_blank");
+      window.open("https://auth.staging.opencampus.xyz/login?redirect_url=%2Fonboarding", "_blank");
+      //window.open("https://auth.staging.opencampus.xyz/login?new_session=true", "_blank");
       window.location.href = "/";
     } catch (error) {
       console.error("❌ Logout Error:", error);

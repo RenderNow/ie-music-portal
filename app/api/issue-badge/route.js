@@ -4,6 +4,9 @@ export async function POST(req) {
   try {
     const { holderOcId, name, description, image } = await req.json();
 
+    // ✅ Debugging OCID on the backend before calling OpenCampus API
+    console.log("📌 Received OCID in /api/issue-badge:", holderOcId);
+
     if (!holderOcId || !name || !description || !image) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
     }
