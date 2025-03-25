@@ -2,6 +2,7 @@
 
 .header {
     display: grid;
+    /* Three columns: 1) Left container, 2) Navigation, 3) Logout button */
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     background: #333;
@@ -13,7 +14,7 @@
     position: relative;
 }
 
-/* Left container for logo and user info */
+/* Left container for logo and user info (grid column 1) */
 .leftContainer {
     display: flex;
     align-items: center;
@@ -22,8 +23,14 @@
 .logo img {
     height: 40px;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+/* User Info + Dropdown */
 .userInfo {
     margin-left: 15px;
     font-size: 14px;
@@ -52,9 +59,10 @@
     visibility: visible;
 }
 
-/* Navigation styles */
+/* Center Navigation (grid column 2) */
 .nav {
     text-align: center;
+    /* By default, placed in column 2 as the second child */
 }
 
 .nav ul {
@@ -74,11 +82,29 @@
     color: #fff;
     font-size: 18px;
     transition: color 0.3s ease, transform 0.3s ease;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+/* Animated underline for nav links */
+.nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #838daf;
+    transition: width 0.3s ease;
+}
+
+.nav a:hover::after {
+    width: 100%;
 }
 
 .nav a:hover {
     color: #838daf;
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 .nav .active a {
@@ -86,25 +112,44 @@
     font-weight: 700;
 }
 
-/* Logout button */
+/* Logout (grid column 3) */
 .logout {
-    background: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+    /* Placed in the third column, pinned to the right */
     justify-self: end;
+    display: inline-block;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 4px;
+    font-family: inherit;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Animated underline for logout link */
+.logout::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #838daf;
+    transition: width 0.3s ease;
+}
+
+.logout:hover::after {
+    width: 100%;
 }
 
 .logout:hover {
-    background: #838daf;
-    box-shadow: 0px 0px 8px rgba(43, 0, 255, 0.3);
+    color: #838daf;
 }
 
-/* Mobile Menu Icon */
+/* Mobile Menu Icon (4th child) */
 .mobileMenuIcon {
     display: none;
     cursor: pointer;
@@ -120,6 +165,7 @@
         padding: 10px 15px;
     }
 
+    /* Left container spans full width on mobile */
     .leftContainer {
         width: 100%;
         display: flex;
@@ -127,8 +173,10 @@
         align-items: center;
     }
 
+    /* Show the mobile menu icon on smaller screens */
     .mobileMenuIcon {
         display: block;
+        margin-top: 10px;
     }
 
     .nav {
@@ -155,9 +203,9 @@
         display: flex;
     }
 
+    /* On mobile, logout can either remain at the bottom or you can place it anywhere you like */
     .logout {
-        width: 100%;
-        text-align: center;
         margin-top: 10px;
+        justify-self: start;
     }
 }
