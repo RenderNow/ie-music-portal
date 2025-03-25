@@ -35,12 +35,6 @@ export default function Contact() {
       <div>
         <h1>Contact</h1>
         <p>Contact Us</p>
-        <div style={{ marginTop: '2rem' }}>
-          <button onClick={handleBadgeSubmit} disabled={submitting}>
-            {submitting ? 'Submitting...' : 'Submit Badge/Award'}
-          </button>
-          {message && <p>{message}</p>}
-        </div>
       </div>
     </Layout>
   );

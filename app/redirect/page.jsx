@@ -13,7 +13,7 @@ export default function RedirectPage() {
   };
 
   const loginError = (error) => {
-    console.error("❌ Login error:", error);
+    console.error("❌ Login error:", error || "No error details provided");
   };
 
   useEffect(() => {

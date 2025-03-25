@@ -44,9 +44,9 @@ export async function POST(req) {
       holderOcId,
     };
 
-    let response, data;
     const maxRetries = 5;
     let attempt = 0;
+    let response, data;
 
     while (attempt < maxRetries) {
       attempt++;
@@ -61,7 +61,8 @@ export async function POST(req) {
           },
           body: JSON.stringify(payload),
         });
-
+        const payloadText = JSON.stringify(payload);
+        console.log("payloadText :", payloadText);
         data = await response.json();
 
         if (response.ok) {
@@ -77,11 +78,12 @@ export async function POST(req) {
       }
     }
 
-    if (!response.ok) {
-      return new Response(JSON.stringify({ error: data.message || "API Error" }), { status: response.status });
+    // If badge issuance failed after 5 attempts, do not update MongoDB.
+    if (!response || !response.ok) {
+      return new Response(JSON.stringify({ error: data?.message || "API Error" }), { status: response ? response.status : 500 });
     }
 
-    // ✅ Store badge in MongoDB
+    // ✅ Store badge in MongoDB only if badge issuance was successful
     const { db } = await connectToDatabase();
     const usersCollection = db.collection("users");
 
